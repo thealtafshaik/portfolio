@@ -1,22 +1,26 @@
-import { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { styles } from '../styles'
 import { EarthCanvas } from './canvas'
 import { SectionWrapper } from '../hoc'
 import { slideIn } from '../utils/motion'
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import '../index.css'
 
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
   });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e?.target ? (e.target) : {value: e};
     setForm({ ...form, [name]: value });
   }
   const handleSubmit = (e) => {
@@ -27,10 +31,11 @@ const Contact = () => {
       'service_wdeiohj',
       'template_ro7wdot',
       {
-        form_name: form.name,
+        name: form.name,
         to_name: 'Altaf Shaik',
-        form_email: form.email,
+        email: form.email,
         to_email: 'thealtafshaik@gmail.com',
+        title: form.phone,
         message: form.message,
       },
       'b3fiX9qSpVQzLWNu7'
@@ -41,6 +46,7 @@ const Contact = () => {
       setForm({
         name: '',
         email: '',
+        phone: '',
         message: '',
       })
     }).error((error) => {
@@ -62,10 +68,11 @@ const Contact = () => {
           className='mt-12 flex flex-col gap-8'
         >
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Name</span>
+            <span className='text-white font-medium mb-4'>Your Name <span className='text-red-500'>*</span></span>
             <input
               type='text'
               name='name'
+              required
               value={form.name}
               onChange={handleChange}
               placeholder="What's your name?"
@@ -74,25 +81,39 @@ const Contact = () => {
           </label>
 
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Email</span>
+            <span className='text-white font-medium mb-4'>Your Email <span className='text-red-500'>*</span></span>
             <input
               type='email'
               name='email'
+              required
               value={form.email}
               onChange={handleChange}
               placeholder="What's your email?"
               className='bg-[#151030] py-4 px-6 placeholder:text-[#aaa6c3] text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
+          
+          <label>
+            <span className='text-white font-medium mb-4'>Your Phone Number</span>
+            <PhoneInput
+              name="phone"
+              placeholder="What's your phone number?"
+              value={form.phone}
+              onChange={handleChange}
+              defaultCountry="SA"
+              className='bg-[#151030] py-4 px-6 placeholder:text-[#aaa6c3] text-white rounded-lg outline-none border-none font-medium'
+            />
+          </label>
 
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Message</span>
+            <span className='text-white font-medium mb-4'>Your Message <span className='text-red-500'>*</span></span>
             <textarea
               rows={7}
               name='message'
+              required
               value={form.message}
               onChange={handleChange}
-              placeholder="What's your Message?"
+              placeholder="What's your message?"
               className='bg-[#151030] py-4 px-6 placeholder:text-[#aaa6c3] text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
@@ -103,7 +124,7 @@ const Contact = () => {
       </motion.div>
       <motion.div
         variants={slideIn('right', 'tween', 0.2, 1)}
-        className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px]'
+        className='xl:flex-1 xl:h-auto sm:w-[300px] md:h-[550px] h-[350px]'
       >
         <EarthCanvas />
       </motion.div>

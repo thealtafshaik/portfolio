@@ -15,6 +15,17 @@
   display: block;
 }
 
+/* phone input */
+.PhoneInputInput {
+  outline: none;
+}
+
+.PhoneInputCountrySelect {
+  color: #fff;
+  background-color: #100d25;
+}
+
+
 .black-gradient {
   background: #000000; /* fallback for old browsers */
   background: -webkit-linear-gradient(
