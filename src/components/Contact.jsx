@@ -5,11 +5,6 @@ import { styles } from '../styles'
 import { EarthCanvas } from './canvas'
 import { SectionWrapper } from '../hoc'
 import { slideIn } from '../utils/motion'
-import { fromHalfFloat } from 'three/src/extras/DataUtils.js'
-
-// b3fiX9qSpVQzLWNu7
-// template_ro7wdot
-// service_wdeiohj
 
 const Contact = () => {
   const formRef = useRef();
@@ -34,7 +29,7 @@ const Contact = () => {
       {
         form_name: form.name,
         to_name: 'Altaf Shaik',
-        from_email: form.email,
+        form_email: form.email,
         to_email: 'thealtafshaik@gmail.com',
         message: form.message,
       },

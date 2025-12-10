@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logo.gif";
 import backend from "./backend.png";
 import fullstack from "./fullstack.png";
 import frontend from "./frontend.png";
