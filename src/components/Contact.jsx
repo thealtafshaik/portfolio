@@ -14,14 +14,18 @@ const Contact = () => {
   const [form, setForm] = useState({
     name: '',
     email: '',
-    phone: '',
+    phone: '+966',
     message: '',
   });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e?.target ? (e.target) : {value: e};
-    setForm({ ...form, [name]: value });
+    if (e?.target) {
+      const { name, value } = e?.target;
+      setForm({ ...form, [name]: value });
+    } else {
+      setForm({ ...form, ['phone']: e });
+    }
   }
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,7 +50,7 @@ const Contact = () => {
       setForm({
         name: '',
         email: '',
-        phone: '',
+        phone: '+966',
         message: '',
       })
     }).error((error) => {
@@ -124,7 +128,7 @@ const Contact = () => {
       </motion.div>
       <motion.div
         variants={slideIn('right', 'tween', 0.2, 1)}
-        className='xl:flex-1 xl:h-auto sm:w-[300px] md:h-[550px] h-[350px]'
+        className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px]'
       >
         <EarthCanvas />
       </motion.div>
